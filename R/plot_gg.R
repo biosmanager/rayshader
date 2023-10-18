@@ -21,6 +21,7 @@
 #'@param height_aes Default `NULL`. Whether the `fill` or `color` aesthetic should be used for height values, 
 #'which the user can specify by passing either `fill` or `color` to this argument.
 #'Automatically detected. If both `fill` and `color` aesthetics are present, then `fill` is default.
+#'@param dpi Default `300`. Resolution of of ggplot.
 #'@param invert Default `FALSE`. If `TRUE`, the height mapping is inverted.
 #'@param shadow_intensity Default `0.5`. The intensity of the calculated shadows.
 #'@param units Default `in`. One of c("in", "cm", "mm").
@@ -202,7 +203,7 @@
 #'render_snapshot()
 #'}
 plot_gg = function(ggobj, ggobj_height = NULL, width = 3, height = 3, 
-                   height_aes = NULL, invert = FALSE, shadow_intensity = 0.5,
+                   height_aes = NULL, dpi = 300, invert = FALSE, shadow_intensity = 0.5,
                    units = c("in", "cm", "mm"), scale=150, pointcontract = 0.7, offset_edges = FALSE,
                    flat_plot_render = FALSE, flat_distance = "auto", 
                    flat_transparent_bg = FALSE, flat_direction = "-z",
@@ -606,7 +607,7 @@ plot_gg = function(ggobj, ggobj_height = NULL, width = 3, height = 3,
     ggplotobj2 = emboss_gg_grid(ggplotobj2, emboss_grid)
   }
   old_dev = grDevices::dev.cur()
-  grDevices::png(filename = heightmaptemp, width = width, height = height, units = "in",res=300)
+  grDevices::png(filename = heightmaptemp, width = width, height = height, units = "in",res=dpi)
   grid::grid.draw(ggplotobj2)
   grDevices::dev.off()
   if (old_dev > 1) {
